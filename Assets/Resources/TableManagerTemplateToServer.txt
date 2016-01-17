@@ -1,0 +1,37 @@
+/*
+ *本代码由igame工具生成,请不要手动编辑
+ */
+#ifndef TABLEMANAGER_H
+#define TABLEMANAGER_H
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<vector>
+#include "stdio.h"
+#include "TableDefineInfo.h"
+using namespace std;
+
+class TableManager
+{
+    
+public:
+    string path;
+
+{#}
+public:
+    TableManager(){
+    }
+    ~TableManager(){}
+    
+    bool Init()
+    {
+        bool bl = true;
+        {#}
+        return bl;
+    };
+    
+    {#}
+};
+
+#endif /* TABLEMANAGER_H */
+
