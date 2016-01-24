@@ -13,16 +13,22 @@ using namespace std;
 
 class TableManager
 {
+public:
+~TableManager(){}
+static TableManager& Instance()
+{
+    static TableManager instance;
+    return instance;
+}
+private:
+    TableManager(){}
+  
     
 public:
     string path;
 
 {#}
 public:
-    TableManager(){
-    }
-    ~TableManager(){}
-    
     bool Init()
     {
         bool bl = true;

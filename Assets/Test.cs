@@ -18,7 +18,14 @@ public class Test : MonoBehaviour {
 	public InputField OutputPath;
 	// Use this for initialization
 	void Start () {
-		
+		if(PlayerPrefs.HasKey("TablePath"))
+		{
+			inputPath.text = PlayerPrefs.GetString("TablePath");
+		}
+		if(PlayerPrefs.HasKey("targetPath"))
+		{
+			OutputPath.text = PlayerPrefs.GetString("targetPath");
+		}
 	}
 	
 	// Update is called once per frame
@@ -30,6 +37,8 @@ public class Test : MonoBehaviour {
 	{
 		TabelEditor.tablePath = inputPath.text;
 		TabelEditor.targetPath = OutputPath.text;
+		PlayerPrefs.SetString("TablePath", inputPath.text);
+		PlayerPrefs.SetString("targetPath", OutputPath.text);
 		TabelEditor.AddSelectAllTabelCode();
 //		s = Application.dataPath;
 		//			string[] sQlitArrStr = s.Split('/');
@@ -45,6 +54,8 @@ public class Test : MonoBehaviour {
 
 		TableEditorToServer.tablePath = inputPath.text;
 		TableEditorToServer.targetPath = OutputPath.text;
+		PlayerPrefs.SetString("TablePath", inputPath.text);
+		PlayerPrefs.SetString("targetPath", OutputPath.text);
 		TableEditorToServer.AddSelectAllServerTabelCode();
 //		s = Application.dataPath;
 		//			string[] sQlitArrStr = s.Split('/');

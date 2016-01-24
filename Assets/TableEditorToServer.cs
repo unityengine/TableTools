@@ -244,12 +244,13 @@ public class TableEditorToServer : MonoBehaviour {
 
 	static string CreateCodeToTableManager3(string name, string id)
 	{
-		return name + @"& Get"+ name +@"ById(int id)
+		return name + @"* Get"+ name +@"ById(int id)
     {
         int count = "+ name +@"ArrCount;
         int low = 0;  
         int high = count - 1;  
         int mid = 0;  
+		bool bFind = false;
         while ( low <= high )  
         {  
             mid = (low + high )/2;  
@@ -258,13 +259,21 @@ public class TableEditorToServer : MonoBehaviour {
             else if (g_"+ name +@"[mid].Get"+ id +@"() > id )     
                 high = mid - 1;  
             else  
-                break;  
+            {
+				bFind = true;
+			    break;  
+			}
         }
-        return g_"+ name +@"[mid];
+		if(!bFind)
+			return NULL;
+        return &g_"+ name +@"[mid];
     }
-    "+ name + @"& Get"+ name +@"ByIndex(int index)
+    "+ name + @"* Get"+ name +@"ByIndex(int index)
     {
-        return g_"+ name +@"[index];
+		int count = "+ name +@"ArrCount;
+		if(index < 0 || index >= count)
+			return NULL;
+        return &g_"+ name +@"[index];
     }
     int Get"+ name +@"Count()
     {
