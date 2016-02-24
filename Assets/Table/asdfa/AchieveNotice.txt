@@ -1,0 +1,7 @@
+﻿Id	Desc	Name	Icon	UILink
+INT	STRING	STRING	STRING	STRING
+#MAX_ID=1024;MAX_RECORD=1025;TableType=Index;				
+#ID	程序不读	内容信息	图标资源	UI链接
+0	藏经阁	藏经阁	Num0	xiaobaoUI
+1	聚贤庄	聚贤庄	Num1	xiaobaoUI
+2	燕子坞	燕子坞	Num1	xiaobaoUI
