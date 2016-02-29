@@ -107,7 +107,7 @@ public class TableEditorToServer : MonoBehaviour {
 
 				string tableIgamePath = CreateTableCodeFile("TableManager", ".h");
 				
-				StreamWriter sw = new StreamWriter(tableIgamePath);
+				StreamWriter sw = new StreamWriter(tableIgamePath, false, new System.Text.UTF8Encoding(true));
 				sw.Write(allTableManagerCodeText);
 				sw.Flush();
 				sw.Close();
@@ -134,21 +134,21 @@ public class TableEditorToServer : MonoBehaviour {
 				
 				string tableDefineInfoPath = CreateTableCodeFile("TableDefineInfo", ".h");
 				
-				StreamWriter sw2 = new StreamWriter(tableDefineInfoPath);
+				StreamWriter sw2 = new StreamWriter(tableDefineInfoPath, false, new System.Text.UTF8Encoding(true));
 				sw2.Write(allTableDefineInfoCodeText);
 				sw2.Flush();
 				sw2.Close();
 
 				//TableManager cpp
 				string TableManagerCppPath = CreateTableCodeFile("TableManager", ".cpp");
-				StreamWriter tmcpp = new StreamWriter(TableManagerCppPath);
+				StreamWriter tmcpp = new StreamWriter(TableManagerCppPath, false, new System.Text.UTF8Encoding(true));
 				tmcpp.Write("#include \"TableManager.h\"");
 				tmcpp.Flush();
 				tmcpp.Close();
 
 				//TableDefineInfo cpp
 				string TableDefineInfoCppPath = CreateTableCodeFile("TableDefineInfo", ".cpp");
-				StreamWriter tdicpp = new StreamWriter(TableDefineInfoCppPath);
+				StreamWriter tdicpp = new StreamWriter(TableDefineInfoCppPath, false, new System.Text.UTF8Encoding(true));
 				string tdiWriteStr = "#include \"TableDefineInfo.h\"\r\n";
 				for(int i = 0; i < allFileInfo.Count; i++)
 				{
@@ -160,6 +160,7 @@ public class TableEditorToServer : MonoBehaviour {
 						string nm =  allFileInfo[i].Name.Replace(".txt","");
 						fullName = fullName.Replace(_path+@"/","");
 						fullName = fullName.Replace(_path+@"\","");
+						fullName = fullName.Replace(@"\","/");
 						tdiWriteStr += "string "+ nm +"::file = \""+ fullName +".txt\";\r\n";
 					}
 				}
@@ -331,8 +332,8 @@ private:
 		string[] allLineStr = File.ReadAllLines(_path);
 
 //		allLineStr[1] = allLineStr[1].ToLower();
-		string[] fieldStrArrLine1 = allLineStr[0].ToLower().Split();
-		string[] fieldStrArrLine2 = allLineStr[1].ToLower().Split();
+		string[] fieldStrArrLine1 = allLineStr[0].ToLower().Split('\t');
+		string[] fieldStrArrLine2 = allLineStr[1].ToLower().Split('\t');
 
 		string[] typeArr = null;
 		string[] fieldArr = null;
@@ -341,11 +342,11 @@ private:
 			if(fieldStrArrLine2[0] == "int")
 			{
 				typeArr = fieldStrArrLine2;
-				fieldArr = allLineStr[0].Split();
+				fieldArr = allLineStr[0].Split('\t');
 			}else
 			{
 				typeArr = fieldStrArrLine1;
-				fieldArr = allLineStr[1].Split();
+				fieldArr = allLineStr[1].Split('\t');
 			}
 		}else
 		{
@@ -360,7 +361,7 @@ private:
 		List<string[]> infoList = new List<string[]>();
 		for(int infoi = 0; infoi < allLineStr.Length; infoi++)
 		{
-			string[] hInfo = allLineStr[infoi].Split();
+			string[] hInfo = allLineStr[infoi].Split('\t');
 			infoList.Add(hInfo);
 		}
 		if(!CheckTableInfo(typeArr, infoList))
@@ -618,6 +619,7 @@ public:
 		for(int i = 0; i < fieldArr.Length; i++)
 		{
 			string s = System.Text.RegularExpressions.Regex.Replace(fieldArr[i], @"[_0-9]*", "");
+			str = System.Text.RegularExpressions.Regex.Replace(str, @"[_0-9]*", "");
 			if(s.ToLower() == str.ToLower())
 			{
 				return typeArr[i];
@@ -634,6 +636,7 @@ public:
 		for(int i = 0; i < fieldArr.Length; i++)
 		{
 			string s = System.Text.RegularExpressions.Regex.Replace(fieldArr[i], @"[_0-9]*", "");
+			str = System.Text.RegularExpressions.Regex.Replace(str, @"[_0-9]*", "");
 			if(s.ToLower() == str.ToLower())
 			{
 				return fieldArr[i];

@@ -172,8 +172,8 @@ public class TabelEditor : MonoBehaviour {
 
 			}*/
 		allLineStr[1] = allLineStr[1].ToLower();
-		string[] fieldStrArr = allLineStr[0].Split();
-		string[] fieldTypeStrArr = allLineStr[1].Split();
+		string[] fieldStrArr = allLineStr[0].Split('\t');
+		string[] fieldTypeStrArr = allLineStr[1].Split('\t');
 		string tableName = Path.GetFileNameWithoutExtension(_path);
 		//写入字符串代码到文件
 		string codeFilePath = CreateTableCodeFile(tableName);
