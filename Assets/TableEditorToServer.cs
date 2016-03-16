@@ -366,7 +366,7 @@ private:
 		}
 		if(!CheckTableInfo(typeArr, infoList))
 		{
-//			Test.instance.errorT.text = "error:" + name + "表数据合法性检测失败，有部分表数据存在异常,table is:" + name;
+			Test.instance.errorT.text += "error:" + name + " table is:" + name;
 //			Test.instance.failureWindow.SetActive(true);
 			return "";
 		}

@@ -1,4 +1,4 @@
-//This code create by igame, don't modify
+//This code create by igame, don't modify，版本号2.8
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -11,6 +11,26 @@ namespace GCGame_igame.Table_igame
     [Serializable]
     public class TableManager
     {
+
+
+        private static Dictionary<string, object> AllTabel = new Dictionary<string, object>();
+
+
+        /// <summary>
+        /// 根据配置表名获取配置表
+        /// </summary>
+        /// <param name="tabelName">Tabel name.</param>
+        public static object GetTabelByName(string tabelName)
+        {
+            if(AllTabel.ContainsKey(tabelName))
+            {
+                return AllTabel[tabelName];
+            }else
+            {
+                return null;
+            }
+        }
+
         private static string GetLoadPath(string localName)
         {
             string localPath = Application.persistentDataPath + "/ResData/Tables/" + localName + ".txt";

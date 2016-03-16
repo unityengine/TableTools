@@ -11,6 +11,26 @@ namespace GCGame_igame.Table_igame
     [Serializable]
     public class TableManager
     {
+
+
+        private static Dictionary<string, object> AllTabel = new Dictionary<string, object>();
+
+
+        /// <summary>
+        /// 根据配置表名获取配置表
+        /// </summary>
+        /// <param name="tabelName">Tabel name.</param>
+        public static object GetTabelByName(string tabelName)
+        {
+            if(AllTabel.ContainsKey(tabelName))
+            {
+                return AllTabel[tabelName];
+            }else
+            {
+                return null;
+            }
+        }
+        
         private static string GetLoadPath(string localName)
         {
             string localPath = Application.persistentDataPath + "/ResData/Tables/" + localName + ".txt";
@@ -191,161 +211,66 @@ namespace GCGame_igame.Table_igame
             }
             return true;
         }
-        private static Dictionary<int, List<Tab_AchieveNotice>> g_AchieveNotice = new Dictionary<int, List<Tab_AchieveNotice>>();
-		public static bool InitTable_AchieveNotice()
+        private static Dictionary<int, List<Tab_DropNotify>> g_DropNotify = new Dictionary<int, List<Tab_DropNotify>>();
+		public static bool InitTable_DropNotify()
 		{
-			g_AchieveNotice.Clear();
+			g_DropNotify.Clear();
 			Dictionary<int, List<object>> tmps = new Dictionary<int, List<object>>();
-			if (!Tab_AchieveNotice.LoadTable(tmps)) return false;
+			if (!Tab_DropNotify.LoadTable(tmps)) return false;
 			foreach (KeyValuePair<int, List<object>> kv in tmps)
 			{
-				List<Tab_AchieveNotice> values = new List<Tab_AchieveNotice>();
+				List<Tab_DropNotify> values = new List<Tab_DropNotify>();
 				foreach (object subit in kv.Value)
 				{
-					values.Add((Tab_AchieveNotice)subit);
+					values.Add((Tab_DropNotify)subit);
 				}
-				g_AchieveNotice.Add(kv.Key, values);
-			}
-			return true;
-		}private static Dictionary<int, List<Tab_BelleAddition>> g_BelleAddition = new Dictionary<int, List<Tab_BelleAddition>>();
-		public static bool InitTable_BelleAddition()
-		{
-			g_BelleAddition.Clear();
-			Dictionary<int, List<object>> tmps = new Dictionary<int, List<object>>();
-			if (!Tab_BelleAddition.LoadTable(tmps)) return false;
-			foreach (KeyValuePair<int, List<object>> kv in tmps)
-			{
-				List<Tab_BelleAddition> values = new List<Tab_BelleAddition>();
-				foreach (object subit in kv.Value)
-				{
-					values.Add((Tab_BelleAddition)subit);
-				}
-				g_BelleAddition.Add(kv.Key, values);
-			}
-			return true;
-		}private static Dictionary<int, List<Tab_BelleMatrixAddition>> g_BelleMatrixAddition = new Dictionary<int, List<Tab_BelleMatrixAddition>>();
-		public static bool InitTable_BelleMatrixAddition()
-		{
-			g_BelleMatrixAddition.Clear();
-			Dictionary<int, List<object>> tmps = new Dictionary<int, List<object>>();
-			if (!Tab_BelleMatrixAddition.LoadTable(tmps)) return false;
-			foreach (KeyValuePair<int, List<object>> kv in tmps)
-			{
-				List<Tab_BelleMatrixAddition> values = new List<Tab_BelleMatrixAddition>();
-				foreach (object subit in kv.Value)
-				{
-					values.Add((Tab_BelleMatrixAddition)subit);
-				}
-				g_BelleMatrixAddition.Add(kv.Key, values);
+				g_DropNotify.Add(kv.Key, values);
 			}
 			return true;
 		}
         public bool InitTable()
         {
             bool bRet = true;
-            			bRet &= InitTable_AchieveNotice();
-			bRet &= InitTable_BelleAddition();
-			bRet &= InitTable_BelleMatrixAddition();
+            			bRet &= InitTable_DropNotify();
+			bRet &= InitAllTabel();
 
             return bRet;
         }
 
-        public static List<Tab_AchieveNotice> GetAchieveNoticeByID(int nKey)
+        static bool InitAllTabel()
+				{AllTabel.Add("DropNotify", g_DropNotify);return true;
+				}public static List<Tab_DropNotify> GetDropNotifyByID(int nKey)
 		{
-			if (g_AchieveNotice.Count == 0)
+			if (g_DropNotify.Count == 0)
 			{
-				InitTable_AchieveNotice();
+				InitTable_DropNotify();
 			}
-			if (g_AchieveNotice.ContainsKey(nKey))
+			if (g_DropNotify.ContainsKey(nKey))
 			{
-				return g_AchieveNotice[nKey];
+				return g_DropNotify[nKey];
 			}
 			return null;
 		}
-		public static Tab_AchieveNotice GetAchieveNoticeByID(int nKey, int nIndex)
+		public static Tab_DropNotify GetDropNotifyByID(int nKey, int nIndex)
 		{
-			if (g_AchieveNotice.Count == 0)
+			if (g_DropNotify.Count == 0)
 			{
-				InitTable_AchieveNotice();
+				InitTable_DropNotify();
 			}
-			if (g_AchieveNotice.ContainsKey(nKey))
+			if (g_DropNotify.ContainsKey(nKey))
 			{
-				if (nIndex >= 0 && nIndex < g_AchieveNotice[nKey].Count)
-					return g_AchieveNotice[nKey][nIndex];
+				if (nIndex >= 0 && nIndex < g_DropNotify[nKey].Count)
+					return g_DropNotify[nKey][nIndex];
 			}
 			return null;
 		}
-		public static Dictionary<int, List<Tab_AchieveNotice>> GetAchieveNotice()
+		public static Dictionary<int, List<Tab_DropNotify>> GetDropNotify()
 		{
-			if (g_AchieveNotice.Count == 0)
+			if (g_DropNotify.Count == 0)
 			{
-				InitTable_AchieveNotice();
+				InitTable_DropNotify();
 			}
-			return g_AchieveNotice;
-		}public static List<Tab_BelleAddition> GetBelleAdditionByID(int nKey)
-		{
-			if (g_BelleAddition.Count == 0)
-			{
-				InitTable_BelleAddition();
-			}
-			if (g_BelleAddition.ContainsKey(nKey))
-			{
-				return g_BelleAddition[nKey];
-			}
-			return null;
-		}
-		public static Tab_BelleAddition GetBelleAdditionByID(int nKey, int nIndex)
-		{
-			if (g_BelleAddition.Count == 0)
-			{
-				InitTable_BelleAddition();
-			}
-			if (g_BelleAddition.ContainsKey(nKey))
-			{
-				if (nIndex >= 0 && nIndex < g_BelleAddition[nKey].Count)
-					return g_BelleAddition[nKey][nIndex];
-			}
-			return null;
-		}
-		public static Dictionary<int, List<Tab_BelleAddition>> GetBelleAddition()
-		{
-			if (g_BelleAddition.Count == 0)
-			{
-				InitTable_BelleAddition();
-			}
-			return g_BelleAddition;
-		}public static List<Tab_BelleMatrixAddition> GetBelleMatrixAdditionByID(int nKey)
-		{
-			if (g_BelleMatrixAddition.Count == 0)
-			{
-				InitTable_BelleMatrixAddition();
-			}
-			if (g_BelleMatrixAddition.ContainsKey(nKey))
-			{
-				return g_BelleMatrixAddition[nKey];
-			}
-			return null;
-		}
-		public static Tab_BelleMatrixAddition GetBelleMatrixAdditionByID(int nKey, int nIndex)
-		{
-			if (g_BelleMatrixAddition.Count == 0)
-			{
-				InitTable_BelleMatrixAddition();
-			}
-			if (g_BelleMatrixAddition.ContainsKey(nKey))
-			{
-				if (nIndex >= 0 && nIndex < g_BelleMatrixAddition[nKey].Count)
-					return g_BelleMatrixAddition[nKey][nIndex];
-			}
-			return null;
-		}
-		public static Dictionary<int, List<Tab_BelleMatrixAddition>> GetBelleMatrixAddition()
-		{
-			if (g_BelleMatrixAddition.Count == 0)
-			{
-				InitTable_BelleMatrixAddition();
-			}
-			return g_BelleMatrixAddition;
+			return g_DropNotify;
 		}
 
         }

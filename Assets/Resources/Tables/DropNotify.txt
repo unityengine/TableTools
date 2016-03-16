@@ -1,0 +1,7 @@
+Id	Desc	ContentType	Content1	Content2
+INT	STRING	INT	STRING	STRING
+#MAX_ID=1023;MAX_RECORD=1024;TableType=Index;				
+#广播ID	描述	"广播类型(1:系统广播2,系统加滚屏广播)"	广播内容，使用字典号	不绑定掉落配置字典
+1	平  西  王  的 藏  宝	1	1	1
+2	藏 经 阁	1	1	1
+3	少 室山	1	1	1

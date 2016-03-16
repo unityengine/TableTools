@@ -74,7 +74,31 @@ public class TabelEditor : MonoBehaviour {
 						allTableIgameCodeText += AddToTableIgame2(name);
 					}
 				}
+
+				allTableIgameCodeText += "\t\t\tbRet &= InitAllTabel();\r\n";
+
 				allTableIgameCodeText += codeFileTableIgameTemplateArr[2];
+
+
+
+
+				allTableIgameCodeText += @"static bool InitAllTabel()
+				{";
+				for(int i = 0; i < allFile.Length; i++)
+				{
+					string curPath = allFile[i].FullName;
+					string s = Path.GetExtension(curPath);
+					if(s == ".txt")
+					{
+						string name = allFile[i].Name.Replace(".txt","");
+						allTableIgameCodeText += "AllTabel.Add(\"" + name + "\", g_" + name + ");";
+					}
+				}
+				allTableIgameCodeText += @"return true;
+				}";
+
+
+
 				for(int i = 0; i < allFile.Length; i++)
 				{
 					string curPath = allFile[i].FullName;

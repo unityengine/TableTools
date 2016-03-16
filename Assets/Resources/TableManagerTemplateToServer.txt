@@ -1,5 +1,6 @@
 /*
  *本代码由igame工具生成,请不要手动编辑
+ *版本号2.8
  */
 #ifndef TABLEMANAGER_H
 #define TABLEMANAGER_H
